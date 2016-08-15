@@ -15,8 +15,8 @@ import { createComposer } from 'properclass';
 const eggComposer = createComposer('Egg').modifier({ size: props => props.size });
 const yolkComposer = eggComposer.element('yolk').modifier({ runny: props => props.isRunny })
 
-const Egg = ({ children }) => (
-  <div className={ eggComposer() } >
+const Egg = ({ children, ...props }) => (
+  <div className={ eggComposer(props) } >
     { children }
   </div>
 );
