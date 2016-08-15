@@ -1,7 +1,7 @@
 {
   "name": "properclass",
   "version": "1.0.0",
-  "description": "BEM style classNames for your React components",
+  "description": "React className utility following BEM conventions",
   "main": "lib/index",
   "scripts": {
     "build:all": "npm run clean:prebuild && npm run build:lib && npm run build:dev && npm run build:prod",
