@@ -1,6 +1,8 @@
 # properclass
 
-Designed for use in your React components, properclass is a utility for composing class names using the [bem](https://en.bem.info/methodology/key-concepts/) methodology.
+[![Coverage Status](https://coveralls.io/repos/github/StickyCube/properclass/badge.svg?branch=master)](https://coveralls.io/github/StickyCube/properclass?branch=master)
+
+Designed for use in your React components, properclass is a utility for composing html class names which follow [BEM](https://en.bem.info/methodology/key-concepts/) conventions.
 
 ```
 npm install properclass --save
@@ -35,6 +37,7 @@ Now let's render some eggs...
 </Egg>
 
 <!-- ** Result ** -->
+
 <div class="Egg Egg--size-big" >
   <div class="Egg__yolk" ></div>
 </div>
@@ -70,7 +73,8 @@ Easy integration with css modules...
 
 ```javascript
 import React from 'react';
-import { createComposer, decorator } from 'properclass';
+import createComposer from 'properclass/lib/createComposer';
+import decorator from 'properclass/lib/decorator';
 import eggStyles from 'styles/Egg.css';
 
 const composer = createComposer('Egg', { styleMap: eggStyles }).element('yolk');
@@ -91,7 +95,7 @@ Customize separators to suit your style...
 ```javascript
 import { createComposer } from 'properclass';
 
-const composer = createComposer('Egg', {
+const classicBemComposer = createComposer('Egg', {
   elementSeparator: '__',
   modifierSeparator: '_',
   modifierValueSeparator: '-'
@@ -101,16 +105,16 @@ const composer = createComposer('Egg', {
 ## API
 
 ##### `properclass.decorator(decoratorOptions : object)`
-- param `decoratorOptions` options to the decorator, see [decoratorOptions]().
+- param `decoratorOptions` options to the decorator, see [decoratorOptions](#decoratoroptions--object).
 
 
 ##### `properclass.createComposer(blockName : string, options : ?composerOptions) : composer`
 - param `blockName` The className of this block.
-- param `options` options to the className composer, see [composerOptions]().
-- returns `composer` a composer function, see [composer]().
+- param `options` options to the className composer, see [composerOptions](#composeroptions--object).
+- returns `composer` a composer function, see [composer](#composerprops--objectstringany--string).
 
 ##### `composer(props : ?object<string,any>) : string`
-- param `props` An object to be used by any functions declared in the map passed to `composer.modifier`, see [modifierOptions]().
+- param `props` An object to be used by any functions declared in the map passed to `composer.modifier`, see [modifierOptions](modifieroptions--string--string--objectstringany).
 - returns `className` the resolved className including the element and modifier clases if specified.
 
 ##### `composer.element(elementName : string) : composer`
@@ -118,29 +122,35 @@ const composer = createComposer('Egg', {
 - returns `composer` a new composer function representing this element within the original block.
 
 ##### `composer.modifier(modifiers : modifierOptions) : composer`
-- param `modifiers` a string, array of strings or object of modifier classNames to add to this block/element. See [modifierOptions]().
+- param `modifiers` a string, array of strings or object of modifier classNames to add to this block/element. See [modifierOptions](modifieroptions--string--string--objectstringany).
 - returns `composer` a new composer function with the applied modifiers.
 
 ##### `decoratorOptions : object`
 - prop `block : string` The name of the block. Required.
 - prop `element : ?string` The name of the element
-- prop `modifier : ?modifierOptions` Options to composer.modifier, see [modifierOptions]().
-- prop `options : ?composerOptions` Additional options to the composer, see [composerOptions]().
+- prop `modifier : ?modifierOptions` Options to composer.modifier, see [modifierOptions](modifieroptions--string--string--objectstringany).
+- prop `options : ?composerOptions` Additional options to the composer, see [composerOptions](#composeroptions--object).
 
 ##### `modifierOptions : string | string[] | object<string,any>`
 - `string` When modifierOptions is a string, `compser()` will always yield a className with the given modifier name.
 
 ```javascript
-createComposer('Spider').modifier('man')() === 'Spider Spider--man';
+assert.equal(
+  createComposer('Spider').modifier('man')(),
+  'Spider Spider--man';
+);
 ```
 
 - `string[]` When modifierOptions is an array of strings, `composer()` will always yield modifiers for each given modifier name.
 
 ```javascript
-createComposer('Lucky').modifier(['sexy', 'winners'])() === 'Lucky Lucky--sexy Lucky--winners';
+assert.equal(
+  createComposer('Lucky').modifier(['sexy', 'winners'])(),
+  'Lucky Lucky--sexy Lucky--winners'
+);
 ```
 
-- `object<string,any>` When modifierOptions is a map, `composer()` will add modifier classNames for each key in the map.
+- `object<string,any>` When modifierOptions is a map, `composer()` will yield modifier classNames for each key in the map.
   - Keys mapping to `true` values yield a className with the format `'BlockName--key'`.
   - Keys mapping to `null|undefined|false` are omitted
   - Keys mapping to `string` values yield a className with the format `'BlockName--key-value'`
@@ -153,9 +163,10 @@ const options = {
   'better-than-yours': props => props.bringsAllTheBoysToTheYard
 };
 
-const props = { bringsAllTheBoysToTheYard: true };
-
-createComposer('Milkshake').modifier(options)(props) === 'Milkshake Milkshake--flavour-banana Milkshake--better-than-yours';
+assert.equal(
+  createComposer('Milkshake').modifier(options)({ bringsAllTheBoysToTheYard: true }),
+  'Milkshake Milkshake--flavour-banana Milkshake--better-than-yours'
+);
 ```
 
 ##### `composerOptions : object`
