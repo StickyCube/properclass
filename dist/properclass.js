@@ -7,7 +7,7 @@
 		exports["Properclass"] = factory(require("react"));
 	else
 		root["Properclass"] = factory(root["React"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports.decorator = exports.createComposer = undefined;
+	exports.decorator = exports.createBlockDecorator = exports.createComposer = undefined;
 
 	var _createComposer = __webpack_require__(1);
 
@@ -67,9 +67,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _decorator2 = _interopRequireDefault(_decorator);
 
+	var _createBlockDecorator = __webpack_require__(3);
+
+	var _createBlockDecorator2 = _interopRequireDefault(_createBlockDecorator);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.createComposer = _createComposer2.default;
+	exports.createBlockDecorator = _createBlockDecorator2.default;
 	exports.decorator = _decorator2.default;
 
 /***/ },
@@ -281,7 +286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = decorator;
 
-	var _react = __webpack_require__(3);
+	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -346,9 +351,63 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = createBlockDecorator;
+
+	var _decorator = __webpack_require__(2);
+
+	var _decorator2 = _interopRequireDefault(_decorator);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var createDecorator = function createDecorator(_ref) {
+	  var blockName = _ref.blockName;
+	  var elementName = _ref.elementName;
+	  var _ref$opts = _ref.opts;
+	  var opts = _ref$opts === undefined ? {} : _ref$opts;
+
+	  return function () {
+	    var decoratorOptions = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	    return function (WrappedComponent) {
+	      var element = decoratorOptions.element;
+	      var modifier = decoratorOptions.modifier;
+	      var _decoratorOptions$opt = decoratorOptions.options;
+	      var options = _decoratorOptions$opt === undefined ? {} : _decoratorOptions$opt;
+
+	      return (0, _decorator2.default)({
+	        block: blockName,
+	        element: element || elementName,
+	        modifier: modifier,
+	        options: _extends({}, options, opts)
+	      })(WrappedComponent);
+	    };
+	  };
+	};
+
+	function createBlockDecorator(blockName) {
+	  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	  var blockDecorator = createDecorator({ blockName: blockName, opts: opts });
+
+	  blockDecorator.element = function (elementName) {
+	    return createDecorator({ blockName: blockName, elementName: elementName, opts: opts });
+	  };
+
+	  return blockDecorator;
+	}
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
 
 /***/ }
 /******/ ])

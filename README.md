@@ -107,6 +107,10 @@ const classicBemComposer = createComposer('Egg', {
 ##### `properclass.decorator(decoratorOptions : object)`
 - param `decoratorOptions` options to the decorator, see [decoratorOptions](#decoratoroptions--object).
 
+##### `properclass.createBlockDecorator(blockName : string, options : ?composerOptions) : blockDecorator`
+- param `blockName` The className of this block
+- param `options` options to the className composer, see [composerOptions](#composeroptions--object).
+- returns `blockDecorator` a properclass.decorator function with `decoratorOptions.block` and `decoratorOptions.options` set with the given arguments.
 
 ##### `properclass.createComposer(blockName : string, options : ?composerOptions) : composer`
 - param `blockName` The className of this block.
@@ -126,7 +130,7 @@ const classicBemComposer = createComposer('Egg', {
 - returns `composer` a new composer function with the applied modifiers.
 
 ##### `decoratorOptions : object`
-- prop `block : string` The name of the block. Required.
+- prop `block : string` The className of the block. Required.
 - prop `element : ?string` The name of the element
 - prop `modifier : ?modifierOptions` Options to composer.modifier, see [modifierOptions](modifieroptions--string--string--objectstringany).
 - prop `options : ?composerOptions` Additional options to the composer, see [composerOptions](#composeroptions--object).
@@ -179,3 +183,27 @@ assert.equal(
  - default `'-'`
 - prop `suppressWarnings : boolean` Suppress warning messages when classNames contain invalid characters.
  - default `false`
+
+
+## Examples
+
+#### `createBlockDecorator`
+
+```javascript
+import React, { Component } from 'react';
+import { createBlockDecorator } from 'properclass';
+import styles from 'styles/Egg.css';
+
+const properclass = createBlockDecorator('Egg', { styleMap: styles });
+
+@properclass()
+class Egg extends Component {
+  ...
+}
+
+@properclass({ element: 'yolk', modifier: { ... } })
+class Yolk extends Component {
+  ...
+}
+
+```

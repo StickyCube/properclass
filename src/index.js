@@ -1,4 +1,5 @@
 import createComposer from './createComposer.js';
 import decorator from './decorator.js';
+import createBlockDecorator from './createBlockDecorator.js';
 
-export { createComposer, decorator };
+export { createComposer, createBlockDecorator, decorator };
