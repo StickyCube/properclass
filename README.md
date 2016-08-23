@@ -129,6 +129,10 @@ const classicBemComposer = createComposer('Egg', {
 - param `modifiers` a string, array of strings or object of modifier classNames to add to this block/element. See [modifierOptions](modifieroptions--string--string--objectstringany).
 - returns `composer` a new composer function with the applied modifiers.
 
+##### `composer.toString(props : ?object) : string`
+- param `props` Props to pass to functional modifiers
+- returns `className` The className for this composer.
+
 ##### `decoratorOptions : object`
 - prop `block : string` The className of the block. Required.
 - prop `element : ?string` The name of the element

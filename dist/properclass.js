@@ -198,7 +198,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var modifiers = options.modifiers;
 
 
-	  var composer = function composer(props) {
+	  var composer = function composer() {
+	    var props = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
 	    var modifierNames = getModifierNames(props, modifiers);
 	    var hasModifiers = modifierNames.length > 0;
 	    var baseClass = { blockName: blockName };
@@ -269,6 +271,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return createComposer(blockName, _extends({}, options, {
 	      modifiers: _extends({}, modifiers, additionaModifiers)
 	    }));
+	  };
+
+	  composer.toString = function (props) {
+	    return composer(props);
 	  };
 
 	  return composer;

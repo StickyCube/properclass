@@ -1,6 +1,6 @@
 {
   "name": "properclass",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "React className utility following BEM conventions",
   "main": "lib/index",
   "scripts": {

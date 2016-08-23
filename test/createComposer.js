@@ -194,3 +194,56 @@ describe('Using a styleMap to transform generated classNames', () => {
     });
   });
 });
+
+describe('composer.toString', function () {
+  const eggComposer = createComposer('Egg');
+  const yolkComposer = eggComposer.element('yolk');
+  const runnyComposer = yolkComposer.modifier('runny');
+  const greenComposer = yolkComposer.modifier({ green: props => props.color });
+  const runnyGreenComposer = yolkComposer.modifier({
+    green: true,
+    runny: true
+  });
+  const runnyGreenEggyComposer = yolkComposer.modifier({
+    color: props => props.color,
+    runny: true,
+    eggy: false
+  });
+
+
+  it('Should return correct className on block composer', function () {
+    const actual = eggComposer.toString();
+    const expected = 'Egg';
+    expect(actual).to.eql(expected);
+  });
+
+  it('Should return correct className on element composer', function () {
+    const actual = yolkComposer.toString();
+    const expected = 'Egg__yolk';
+    expect(actual).to.eql(expected);
+  });
+
+  it('Should return correct className on element composer with 1 modifier', function () {
+    const actual = runnyComposer.toString();
+    const expected = 'Egg__yolk Egg__yolk--runny';
+    expect(actual).to.eql(expected);
+  });
+
+  it('Should return correct className on element composer with a function modifier', function () {
+    const actual = greenComposer.toString();
+    const expected = 'Egg__yolk';
+    expect(actual).to.eql(expected);
+  });
+
+  it('Should return correct className on element composer with a muliple modifiers', function () {
+    const actual = runnyGreenComposer.toString();
+    const expected = 'Egg__yolk Egg__yolk--green Egg__yolk--runny';
+    expect(actual).to.eql(expected);
+  });
+
+  it('Should return correct classNames on element with functional mofifiers', function () {
+    const actual = runnyGreenEggyComposer.toString({ color: 'green' });
+    const expected = 'Egg__yolk Egg__yolk--color-green Egg__yolk--runny';
+    expect(actual).to.eql(expected);
+  });
+});

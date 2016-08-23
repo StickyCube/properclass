@@ -98,7 +98,7 @@ export default function createComposer (blockName, opt = {}) {
   const options = validateOptions(opt);
   const { styleMap, elementName, modifiers } = options;
 
-  const composer = function (props) {
+  const composer = function (props = {} ) {
     const modifierNames = getModifierNames(props, modifiers);
     const hasModifiers = modifierNames.length > 0;
     const baseClass = { blockName };
@@ -177,6 +177,10 @@ export default function createComposer (blockName, opt = {}) {
         }
       }
     );
+  };
+
+  composer.toString = function (props) {
+    return composer(props);
   };
 
   return composer;
