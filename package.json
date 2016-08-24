@@ -11,7 +11,7 @@
     "clean:prebuild": "rimraf lib dist coverage",
     "test": "_mocha --compilers js:babel-register --recursive",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- --recursive",
-    "submit-coverage": "cat coverage/lcov.info | coveralls"
+    "submit-coverage": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
