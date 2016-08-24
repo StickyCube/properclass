@@ -3,4 +3,6 @@ node_js:
   - '5'
 script:
   - npm run test:coverage
-  - npm run submit-coverage
+
+after_success:
+  - npm run coverage
