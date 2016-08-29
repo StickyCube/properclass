@@ -160,7 +160,7 @@ assert.equal(
 
 - `object<string,any>` When modifierOptions is a map, `composer()` will yield modifier classNames for each key in the map.
   - Keys mapping to `true` values yield a className with the format `'BlockName--key'`.
-  - Keys mapping to `null|undefined|false` are omitted
+  - Keys mapping to `null|undefined|false` or empty string are omitted
   - Keys mapping to `string` values yield a className with the format `'BlockName--key-value'`
   - Keys mapping to `function` values apply these cases to the return value.
 

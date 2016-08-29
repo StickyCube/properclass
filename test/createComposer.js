@@ -58,6 +58,24 @@ describe('Default options', () => {
     expect(actual).to.eql(expected);
   });
 
+  it('Should correctly map number modifiers', () => {
+    const numberComposer = eggComposer.modifier({
+      foo: props => props.foo,
+      bar: props => props.bar,
+      baz: props => props.baz
+    });
+
+    const actual = numberComposer({ foo: 0, bar: -10, baz: 10 });
+    const expected = 'Egg Egg--foo-0 Egg--bar--10 Egg--baz-10';
+    expect(actual).to.eql(expected);
+  });
+
+  it('Should treat empty strings as falsy', () => {
+    const stringComposer = eggComposer.modifier({ foo: '', bar: props => props.bar });
+    const actual = stringComposer({ bar: '' });
+    const expected = 'Egg';
+    expect(actual).to.eql(expected);
+  });
 });
 
 describe('elements of a block should not inherit mofifiers', () => {

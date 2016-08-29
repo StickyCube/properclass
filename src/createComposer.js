@@ -13,6 +13,12 @@ const isPlainObject = val => (
 
 const isClassName = className => VALID_CLASSNAME_PATTERN.test(className);
 
+const isFalsy = val => (
+  val == null ||
+  val === false ||
+  val === ''
+);
+
 const warning = function (message) {
   console.error(message);
 
@@ -60,7 +66,7 @@ const formatClassName = function (parts, options) {
     className += `${modifierSeparator}${parts.modifierKey}`;
   }
 
-  if (parts.modifierValue) {
+  if (!isFalsy(parts.modifierValue)) {
     className += `${modifierValueSeparator}${parts.modifierValue}`;
   }
 
@@ -80,7 +86,7 @@ const getModifierNames = function (props, modifiers) {
         modifierValue = modifierValue(props);
       }
 
-      if (modifierValue == null || modifierValue === false) {
+      if (isFalsy(modifierValue)) {
         return names;
       }
 

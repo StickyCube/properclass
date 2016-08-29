@@ -110,6 +110,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return VALID_CLASSNAME_PATTERN.test(className);
 	};
 
+	var isFalsy = function isFalsy(val) {
+	  return val == null || val === false || val === '';
+	};
+
 	var warning = function warning(message) {
 	  console.error(message);
 
@@ -158,7 +162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    className += '' + modifierSeparator + parts.modifierKey;
 	  }
 
-	  if (parts.modifierValue) {
+	  if (!isFalsy(parts.modifierValue)) {
 	    className += '' + modifierValueSeparator + parts.modifierValue;
 	  }
 
@@ -177,7 +181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      modifierValue = modifierValue(props);
 	    }
 
-	    if (modifierValue == null || modifierValue === false) {
+	    if (isFalsy(modifierValue)) {
 	      return names;
 	    }
 
