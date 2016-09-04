@@ -30,6 +30,14 @@ export default function decorator ({ block, element, modifier, options }) {
       }
     }
 
+    if (WrappedComponent.propTypes) {
+      WrapperComponent.propTypes = WrappedComponent.propTypes;
+    }
+
+    if (WrappedComponent.defaultProps) {
+      WrapperComponent.defaultProps = WrappedComponent.defaultProps;
+    }
+
     return WrapperComponent;
   };
 }

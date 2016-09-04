@@ -10,3 +10,7 @@
 ## v1.3.0
 
 - Now behaves correctly when passing 0 and empty strings as modifiers.
+
+## v1.3.1
+
+- Fixes an issue with decorator and defaultProps
