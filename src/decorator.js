@@ -41,5 +41,3 @@ export default function decorator ({ block, element, modifier, options }) {
     return WrapperComponent;
   };
 }
-
-export default decorator;

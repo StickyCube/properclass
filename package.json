@@ -1,6 +1,6 @@
 {
   "name": "properclass",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "React className utility following BEM conventions",
   "main": "lib/index",
   "scripts": {
@@ -75,12 +75,13 @@
     "mocha": "^3.0.2",
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",
+    "react-dom": "15.4.2",
     "rimraf": "^2.5.4",
     "semistandard": "^8.0.0",
     "webpack": "^1.13.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0"
+    "react": ">=0.x.x"
   },
   "semistandard": {
     "parser": "babel-eslint"

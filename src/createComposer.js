@@ -94,6 +94,17 @@ const getModifierNames = function (props, modifiers) {
         return [...names, { modifierKey }];
       }
 
+
+      if (isArray(modifierValue)) {
+        return [
+          ...names,
+          ...modifierValue.filter(val => !isFalsy(val)).map(value => ({
+            modifierKey,
+            modifierValue: value
+          }))
+        ];
+      }
+
       return [...names, { modifierKey, modifierValue }];
     },
     []

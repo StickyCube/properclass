@@ -76,6 +76,14 @@ describe('Default options', () => {
     const expected = 'Egg';
     expect(actual).to.eql(expected);
   });
+
+  it('Should combine arrays into multiple classes', () => {
+    const arrayComposer = eggComposer.modifier({ foo: ['bar', 'baz'] });
+    const actual = arrayComposer();
+    const expected = 'Egg Egg--foo-bar Egg--foo-baz';
+    expect(actual).to.eql(expected);
+    
+  });
 });
 
 describe('elements of a block should not inherit mofifiers', () => {

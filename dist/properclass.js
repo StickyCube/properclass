@@ -132,12 +132,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var validateOptions = function validateOptions(opt) {
 	  var options = _extends({}, opt);
-	  var _options$elementSepar = options.elementSeparator;
-	  var elementSeparator = _options$elementSepar === undefined ? '__' : _options$elementSepar;
-	  var _options$modifierSepa = options.modifierSeparator;
-	  var modifierSeparator = _options$modifierSepa === undefined ? '--' : _options$modifierSepa;
-	  var _options$modifierValu = options.modifierValueSeparator;
-	  var modifierValueSeparator = _options$modifierValu === undefined ? '-' : _options$modifierValu;
+	  var _options$elementSepar = options.elementSeparator,
+	      elementSeparator = _options$elementSepar === undefined ? '__' : _options$elementSepar,
+	      _options$modifierSepa = options.modifierSeparator,
+	      modifierSeparator = _options$modifierSepa === undefined ? '--' : _options$modifierSepa,
+	      _options$modifierValu = options.modifierValueSeparator,
+	      modifierValueSeparator = _options$modifierValu === undefined ? '-' : _options$modifierValu;
 
 
 	  options.elementSeparator = elementSeparator;
@@ -149,9 +149,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var formatClassName = function formatClassName(parts, options) {
 	  var className = parts.blockName;
-	  var elementSeparator = options.elementSeparator;
-	  var modifierSeparator = options.modifierSeparator;
-	  var modifierValueSeparator = options.modifierValueSeparator;
+	  var elementSeparator = options.elementSeparator,
+	      modifierSeparator = options.modifierSeparator,
+	      modifierValueSeparator = options.modifierValueSeparator;
 
 
 	  if (parts.elementName) {
@@ -189,21 +189,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return [].concat(names, [{ modifierKey: modifierKey }]);
 	    }
 
+	    if (isArray(modifierValue)) {
+	      return [].concat(names, modifierValue.filter(function (val) {
+	        return !isFalsy(val);
+	      }).map(function (value) {
+	        return {
+	          modifierKey: modifierKey,
+	          modifierValue: value
+	        };
+	      }));
+	    }
+
 	    return [].concat(names, [{ modifierKey: modifierKey, modifierValue: modifierValue }]);
 	  }, []);
 	};
 
 	function createComposer(blockName) {
-	  var opt = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	  var options = validateOptions(opt);
-	  var styleMap = options.styleMap;
-	  var elementName = options.elementName;
-	  var modifiers = options.modifiers;
+	  var styleMap = options.styleMap,
+	      elementName = options.elementName,
+	      modifiers = options.modifiers;
 
 
 	  var composer = function composer() {
-	    var props = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	    var modifierNames = getModifierNames(props, modifiers);
 	    var hasModifiers = modifierNames.length > 0;
@@ -319,10 +330,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	function decorator(_ref) {
-	  var block = _ref.block;
-	  var element = _ref.element;
-	  var modifier = _ref.modifier;
-	  var options = _ref.options;
+	  var block = _ref.block,
+	      element = _ref.element,
+	      modifier = _ref.modifier,
+	      options = _ref.options;
 
 	  var composer = (0, _createComposer2.default)(block, options);
 
@@ -353,11 +364,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return WrapperComponent;
 	    }(_react2.default.Component);
 
+	    if (WrappedComponent.propTypes) {
+	      WrapperComponent.propTypes = WrappedComponent.propTypes;
+	    }
+
+	    if (WrappedComponent.defaultProps) {
+	      WrapperComponent.defaultProps = WrappedComponent.defaultProps;
+	    }
+
 	    return WrapperComponent;
 	  };
 	}
-
-	exports.default = decorator;
 
 /***/ },
 /* 3 */
@@ -378,18 +395,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var createDecorator = function createDecorator(_ref) {
-	  var blockName = _ref.blockName;
-	  var elementName = _ref.elementName;
-	  var _ref$opts = _ref.opts;
-	  var opts = _ref$opts === undefined ? {} : _ref$opts;
+	  var blockName = _ref.blockName,
+	      elementName = _ref.elementName,
+	      _ref$opts = _ref.opts,
+	      opts = _ref$opts === undefined ? {} : _ref$opts;
 
 	  return function () {
-	    var decoratorOptions = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	    var decoratorOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	    return function (WrappedComponent) {
-	      var element = decoratorOptions.element;
-	      var modifier = decoratorOptions.modifier;
-	      var _decoratorOptions$opt = decoratorOptions.options;
-	      var options = _decoratorOptions$opt === undefined ? {} : _decoratorOptions$opt;
+	      var element = decoratorOptions.element,
+	          modifier = decoratorOptions.modifier,
+	          _decoratorOptions$opt = decoratorOptions.options,
+	          options = _decoratorOptions$opt === undefined ? {} : _decoratorOptions$opt;
 
 	      return (0, _decorator2.default)({
 	        block: blockName,
@@ -402,7 +419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	function createBlockDecorator(blockName) {
-	  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	  var blockDecorator = createDecorator({ blockName: blockName, opts: opts });
 
