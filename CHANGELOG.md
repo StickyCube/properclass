@@ -14,3 +14,8 @@
 ## v1.3.1
 
 - Fixes an issue with decorator and defaultProps
+
+
+## v1.5.0
+
+- Add getWrappedInstance method
