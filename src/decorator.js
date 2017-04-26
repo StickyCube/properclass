@@ -20,9 +20,15 @@ export default function decorator ({ block, element, modifier, options }) {
 
   return WrappedComponent => {
     class WrapperComponent extends React.Component {
+
+      getWrappedInstance () {
+        return this.refs.wrappedInstance;
+      }
+
       render () {
         return (
           <WrappedComponent
+            ref='wrappedInstance'
             {...this.props}
             className={concat(this.props.className, composer(this.props))}
             />
