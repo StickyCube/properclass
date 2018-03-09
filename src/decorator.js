@@ -22,13 +22,13 @@ export default function decorator ({ block, element, modifier, options }) {
     class WrapperComponent extends React.Component {
 
       getWrappedInstance () {
-        return this.refs.wrappedInstance;
+        return this.wrappedInstance;
       }
 
       render () {
         return (
           <WrappedComponent
-            ref='wrappedInstance'
+            ref={ref => { this.wrappedInstance = ref; }}
             {...this.props}
             className={concat(this.props.className, composer(this.props))}
             />
