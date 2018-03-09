@@ -29,7 +29,7 @@ export default function decorator ({ block, element, modifier, options, withRef 
         let props;
 
         if (withRef) {
-          props = { ...this.props, withRef: ref => { this.wrappedInstance = ref; } };
+          props = { ...this.props, ref: ref => { this.wrappedInstance = ref; } };
         } else {
           props = this.props;
         }

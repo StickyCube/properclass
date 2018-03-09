@@ -367,8 +367,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var props = void 0;
 
 	        if (withRef) {
-	          props = _extends({}, this.props, { withRef: function withRef(ref) {
-	              _this2.wrappedInstance = ref;
+	          props = _extends({}, this.props, { ref: function ref(_ref2) {
+	              _this2.wrappedInstance = _ref2;
 	            } });
 	        } else {
 	          props = this.props;

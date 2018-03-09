@@ -24,3 +24,7 @@
 
 - Fix: Dont use string refs to preserve React owner
 - Feature: Allow opt-out of ref by passing `withRef: false` to decorators.
+
+## v1.6.1
+
+- Fix: fix typo on ref
