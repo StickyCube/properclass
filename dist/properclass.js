@@ -333,7 +333,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var block = _ref.block,
 	      element = _ref.element,
 	      modifier = _ref.modifier,
-	      options = _ref.options;
+	      options = _ref.options,
+	      _ref$withRef = _ref.withRef,
+	      withRef = _ref$withRef === undefined ? true : _ref$withRef;
 
 	  var composer = (0, _createComposer2.default)(block, options);
 
@@ -356,13 +358,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      WrapperComponent.prototype.getWrappedInstance = function getWrappedInstance() {
-	        return this.refs.wrappedInstance;
+	        return this.wrappedInstance;
 	      };
 
 	      WrapperComponent.prototype.render = function render() {
-	        return _react2.default.createElement(WrappedComponent, _extends({
-	          ref: 'wrappedInstance'
-	        }, this.props, {
+	        var _this2 = this;
+
+	        var props = void 0;
+
+	        if (withRef) {
+	          props = _extends({}, this.props, { withRef: function withRef(ref) {
+	              _this2.wrappedInstance = ref;
+	            } });
+	        } else {
+	          props = this.props;
+	        }
+
+	        return _react2.default.createElement(WrappedComponent, _extends({}, props, {
 	          className: concat(this.props.className, composer(this.props))
 	        }));
 	      };
