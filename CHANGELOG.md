@@ -19,3 +19,8 @@
 ## v1.5.0
 
 - Add getWrappedInstance method
+
+## v1.6.0
+
+- Fix: Dont use string refs to preserve React owner
+- Feature: Allow opt-out of ref by passing `withRef: false` to decorators.

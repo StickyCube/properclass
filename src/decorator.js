@@ -7,7 +7,7 @@ const concat = function (a, b) {
   return `${a} ${b}`;
 };
 
-export default function decorator ({ block, element, modifier, options }) {
+export default function decorator ({ block, element, modifier, options, withRef = true }) {
   let composer = createComposer(block, options);
 
   if (element) {
@@ -26,10 +26,17 @@ export default function decorator ({ block, element, modifier, options }) {
       }
 
       render () {
+        let props;
+
+        if (withRef) {
+          props = { ...this.props, withRef: ref => { this.wrappedInstance = ref; } };
+        } else {
+          props = this.props;
+        }
+
         return (
           <WrappedComponent
-            ref={ref => { this.wrappedInstance = ref; }}
-            {...this.props}
+            {...props}
             className={concat(this.props.className, composer(this.props))}
             />
         );
